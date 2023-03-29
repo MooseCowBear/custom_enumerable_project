@@ -37,10 +37,19 @@ module Enumerable
   end
 
   def my_any?
+
     result = false
-    for elem in self do
-      if yield(elem)
-        result = true
+    if self.kind_of?(Array)
+      for elem in self do
+        if yield(elem)
+          result = true
+        end
+      end
+    else
+      for k, v in self do
+        if yield(k, v)
+          result = true
+        end
       end
     end
     result
