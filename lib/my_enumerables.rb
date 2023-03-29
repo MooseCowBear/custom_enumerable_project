@@ -108,7 +108,7 @@ module Enumerable
     result
   end
 
-  def my_inject(value) #needs refactoring
+  def my_inject(value) 
     for elem in self do
       value = yield(value, elem)
     end
