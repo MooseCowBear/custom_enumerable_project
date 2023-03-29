@@ -20,8 +20,18 @@ module Enumerable
 
   def my_all?
     result = true
-    for elem in self do
-      result = yield(elem) ? true : false
+    if self.kind_of?(Array)
+      for elem in self do
+        unless yield(elem)
+          result = false
+        end
+      end
+    else
+      for k, v in self do
+        unless yield(k, v)
+          result = false
+        end
+      end
     end
     result
   end
