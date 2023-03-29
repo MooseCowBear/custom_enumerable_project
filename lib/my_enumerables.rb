@@ -37,7 +37,6 @@ module Enumerable
   end
 
   def my_any?
-
     result = false
     if self.kind_of?(Array)
       for elem in self do
@@ -57,9 +56,17 @@ module Enumerable
 
   def my_none?
     result = true
-    for elem in self do
-      if yield(elem)
-        result = false
+    if self.kind_of?(Array)
+      for elem in self do
+        if yield(elem)
+          result = false
+        end
+      end
+    else
+      for k, v in self do
+        if yield(k, v)
+          result = false
+        end
       end
     end
     result
