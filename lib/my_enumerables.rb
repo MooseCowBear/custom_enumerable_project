@@ -11,9 +11,18 @@ module Enumerable
 
   def my_select
     return self.dup unless block_given?
-    result = []
-    for elem in self do
-      result << elem if yield(elem) #yield elem is true/false
+    array = self.kind_of?(Array)
+    result = array ? [] : {}
+    if array
+      for elem in self do
+        result << elem if yield(elem) #yield elem is true/false
+      end
+    else
+      for k, v in self do
+        if yield(k, v)
+          result[k] = v
+        end
+      end
     end
     result
   end
