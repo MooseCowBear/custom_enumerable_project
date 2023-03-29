@@ -3,9 +3,16 @@ module Enumerable
   def my_each_with_index
     return self.dup unless block_given?
     index = 0
-    for elem in self do
-      yield elem, index
-    index += 1
+    if self.kind_of?(Array)
+      for elem in self do
+        yield elem, index
+        index += 1
+      end
+    else
+      for (k, v) in self do
+        yield [k, v], index
+        index += 1
+      end
     end
   end
 
@@ -15,7 +22,7 @@ module Enumerable
     result = array ? [] : {}
     if array
       for elem in self do
-        result << elem if yield(elem) #yield elem is true/false
+        result << elem if yield(elem) 
       end
     else
       for k, v in self do
@@ -92,7 +99,7 @@ module Enumerable
     count
   end 
 
-  def my_map 
+  def my_map #needs refactoring
     return self.dup unless block_given?
     result = []
     for elem in self do
@@ -101,7 +108,7 @@ module Enumerable
     result
   end
 
-  def my_inject(value)
+  def my_inject(value) #needs refactoring
     for elem in self do
       value = yield(value, elem)
     end
