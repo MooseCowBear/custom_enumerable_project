@@ -4,6 +4,7 @@ require_relative '../lib/my_enumerables'
 
 RSpec.describe Enumerable do
   subject(:enumerable) { [1, 1, 2, 3, 5, 8, 13, 21, 34] }
+  subject(:enumerable_hash) { {:one => 1, :two => 2} }
 
   describe '#my_map' do
     context 'when given a block' do
@@ -19,6 +20,12 @@ RSpec.describe Enumerable do
     context 'when called with &:symbol' do
       it 'returns an array calling the method that matches the symbol for each element' do
         expect(enumerable.my_map(&:odd?)).to eq([true, true, false, true, true, false, true, true, false])
+      end
+    end
+
+    context 'when used with hash' do
+      it 'returns array by yielding to the block' do
+        expect(enumerable_hash.my_map { |k, v| v * 2 }).to eq([2, 4])
       end
     end
   end

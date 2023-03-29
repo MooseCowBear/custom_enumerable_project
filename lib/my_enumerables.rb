@@ -99,7 +99,7 @@ module Enumerable
     count
   end 
 
-  def my_map #needs refactoring
+  def my_map 
     return self.dup unless block_given?
     result = []
     for elem in self do
